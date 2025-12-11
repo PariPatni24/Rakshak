@@ -39,7 +39,7 @@ model, df = load_files()
 # PAGE HEADER
 # ------------------------------
 st.title("🔒 Women Safety Analytics – District Risk Predictor")
-st.markdown("Using **NCRB crime data (2001–2014)** + **Machine Learning** to assess women's safety risk.")
+st.markdown("Using **NCRB crime data** + **Machine Learning** to assess women's safety risk.")
 st.markdown("---")
 
 # ------------------------------
