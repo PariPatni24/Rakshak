@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+import os
 import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
@@ -16,8 +17,12 @@ st.set_page_config(page_title="Women Safety Analytics", layout="centered")
 @st.cache_resource
 def load_files():
     try:
-        model = joblib.load("women_safety_rf_model.pkl")
-        df = pd.read_csv("district_risk_dataset_sorted.csv")
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(BASE_DIR, "women_safety_rf_model.pkl")
+        data_path = os.path.join(BASE_DIR, "district_risk_dataset_sorted.csv")
+
+        model = joblib.load(model_path)
+        df = pd.read_csv(data_path)
 
         # Normalize for consistent matching
         df["STATE"] = df["STATE"].str.upper()
@@ -192,7 +197,9 @@ st.header("🗺️ District Risk Map")
 @st.cache_resource
 def load_geojson():
     try:
-        return gpd.read_file("india_districts.geojson")
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        geojson_path = os.path.join(BASE_DIR, "india_districts.geojson")
+        return gpd.read_file(geojson_path)
     except Exception:
         return None
 
